@@ -12,34 +12,31 @@ Pouring some milk into the cup
 Coffee is ready!
 `);
 
-
-let ingredients = {
-    water: 200,
-    milk: 50,
-    beans: 15
-};
-
+const water = 200;
+const milk = 50;
+const beans = 15;
 
 console.log("Write how many ml of water the coffee machine has:");
-let storedWater = Number(input()) / ingredients.water;
-let minimum = storedWater;
+let storedWater = Number(input()) / water;
+
 
 console.log("Write how many ml of milk the coffee machine has:");
-let storedMilk = Number(input()) / ingredients.milk;
-minimum = storedMilk < minimum ? storedMilk : minimum;
+let storedMilk = Number(input()) / milk;
+
 
 console.log("Write how many grams of coffee beans the coffee machine has:");
-let storedBeans = Number(input()) / ingredients.beans;
-minimum = storedBeans < minimum ? storedBeans : minimum;
+let storedBeans = Number(input()) / beans;
 
+
+let minimum = Math.floor(Math.min(storedWater, storedMilk, storedBeans));
 
 console.log("Write how many cups of coffee you will need:");
 let cupsOfCoffee = Number(input());
 
-if (cupsOfCoffee === parseInt(minimum)) {
+if (cupsOfCoffee === minimum) {
     console.log("Yes, I can make that amount of coffee");
-} else if (cupsOfCoffee < parseInt(minimum)) {
-    console.log(`Yes, I can make that amount of coffee (and even ${parseInt(minimum) - cupsOfCoffee} more than that)`)
+} else if (cupsOfCoffee < minimum) {
+    console.log(`Yes, I can make that amount of coffee (and even ${minimum - cupsOfCoffee} more than that)`)
 } else {
-    console.log(`No, I can only make ${parseInt(minimum)} cups of coffee`);
+    console.log(`No, I can only make ${minimum} cups of coffee`);
 }
