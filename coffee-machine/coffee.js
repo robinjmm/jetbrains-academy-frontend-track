@@ -3,40 +3,97 @@
 // You will need this in the following stages
 const input = require('sync-input')
 
-console.log(`Starting to make a coffee
-Grinding coffee beans
-Boiling water
-Mixing boiled water with crushed coffee beans
-Pouring coffee into the cup
-Pouring some milk into the cup
-Coffee is ready!
-`);
+let water = 400;
+let milk = 540;
+let beans = 120;
+let cups = 9;
+let money = 550;
 
-const water = 200;
-const milk = 50;
-const beans = 15;
+let espresso = {
+    water: 250,
+    beans: 16,
+    money: 4,
+    cups: 1
+}
 
-console.log("Write how many ml of water the coffee machine has:");
-let storedWater = Number(input()) / water;
+let latte = {
+    water: 350,
+    milk: 75,
+    beans: 20,
+    money: 7,
+    cups: 1
+}
+
+let cappuccino = {
+    water: 200,
+    milk: 100,
+    beans: 12,
+    money: 6
+}
+
+function outputLog(water, milk, beans, cups, money) {
+    console.log(`The coffee machine has:
+    ${water} ml of water
+    ${milk} ml of milk
+    ${beans} g of coffee beans
+    ${cups} disposable cups
+    $${money} of money`);
+}
 
 
-console.log("Write how many ml of milk the coffee machine has:");
-let storedMilk = Number(input()) / milk;
+outputLog(water, milk, beans, cups, money);
 
 
-console.log("Write how many grams of coffee beans the coffee machine has:");
-let storedBeans = Number(input()) / beans;
+console.log("Write action (buy, fill, take):");
+let userInput = input();
 
+if (userInput === "buy") {
+    console.log("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
+    let coffeeChoice = input();
 
-let minimum = Math.floor(Math.min(storedWater, storedMilk, storedBeans));
+    if (coffeeChoice === "espresso") {
+        water = water - espresso.water;
+        beans = beans - espresso.beans;
+        money = money + espresso.money;
+        cups = cups - espresso.cups;
 
-console.log("Write how many cups of coffee you will need:");
-let cupsOfCoffee = Number(input());
+        outputLog(water, milk, beans, cups, money);
+    } else if (coffeeChoice === "2") {
+        water = water - latte.water;
+        beans = beans - latte.beans;
+        money = money + latte.money;
+        cups = cups - latte.cups;
 
-if (cupsOfCoffee === minimum) {
-    console.log("Yes, I can make that amount of coffee");
-} else if (cupsOfCoffee < minimum) {
-    console.log(`Yes, I can make that amount of coffee (and even ${minimum - cupsOfCoffee} more than that)`)
-} else {
-    console.log(`No, I can only make ${minimum} cups of coffee`);
+        outputLog(water, milk, beans, cups, money);
+    } else if (coffeeChoice === "3") {
+        water = water - cappuccino.water;
+        beans = beans - cappuccino.beans;
+        money = money + cappuccino.money;
+        cups = cups - cappuccino.cups;
+
+        outputLog(water, milk, beans, cups, money);
+    }
+} else if (userInput === "fill") {
+    console.log("Write how many ml of water you want to add:");
+    let fillWater = parseInt(input());
+    water += fillWater;
+
+    console.log("Write how many ml of milk you want to add:");
+    let fillMilk = parseInt(input());
+    milk += fillMilk;
+
+    console.log("Write how many grams of coffee beans you want to add:");
+    let fillBeans = parseInt(input());
+    beans += fillBeans;
+
+    console.log("Write how many disposable coffee cups you want to add:");
+    let fillCups = parseInt(input());
+    cups += fillCups;
+
+    outputLog(water, milk, beans, cups, money);
+} else if (userInput === "take") {
+    console.log(`I gave you $${money}`);
+    money -= money;
+
+    outputLog(water, milk, beans, cups, money);
 }
