@@ -90,19 +90,16 @@ while (userInput !== "exit") {
 
         if (coffeeChoice.toLowerCase() === "back") {
             askUser();
+        } else if (coffeeChoice === "1") {
+            compute(espresso);
+        } else if (coffeeChoice === "2") {
+            compute(latte);
+        } else if (coffeeChoice === "3") {
+            compute(cappuccino);
         } else {
-            if (coffeeChoice === "1") {
-                compute(espresso);
-            } else if (coffeeChoice === "2") {
-                compute(latte);
-            } else if (coffeeChoice === "3") {
-                compute(cappuccino);
-            } else if (coffeeChoice.toLocaleLowerCase() === "back") {
-                askUser();
-            } else {
-                console.log("Invalid Input");
-            }
+            console.log("Invalid Input");
         }
+
 
     } else if (userInput === "fill") {
         console.log("Write how many ml of water you want to add:");
