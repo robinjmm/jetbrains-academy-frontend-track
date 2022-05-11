@@ -1,7 +1,7 @@
-// Use "prompt()" to input a line from the user
+// Use "input()" to input a line from the user
 // Use "input(str)" to print some text before requesting input
 // You will need this in the following stages
-// const input = require('sync-input')
+const input = require('sync-input')
 
 let defaultState = {
     water: 400,
@@ -74,31 +74,31 @@ function compute(coffee) {
 
 function askUser() {
     console.log("Write action (buy, fill, take, remaining, exit):");
-    userInput = prompt();
+    userInput = input();
 }
 
 function fillCoffeeMachine() {
     console.log("Write how many ml of water you want to add:");
-    defaultState.water += parseInt(prompt());
+    defaultState.water += parseInt(input());
 
     console.log("Write how many ml of milk you want to add:");
-    defaultState.milk += parseInt(prompt());
+    defaultState.milk += parseInt(input());
 
     console.log("Write how many grams of coffee beans you want to add:");
-    defaultState.beans += parseInt(prompt());
+    defaultState.beans += parseInt(input());
 
     console.log("Write how many disposable coffee cups you want to add:");
-    defaultState.cups += parseInt(prompt());
+    defaultState.cups += parseInt(input());
 }
 
 console.log("Write action (buy, fill, take, remaining, exit):");
-let userInput = prompt();
+let userInput = input();
 
 // Continuously ask user for input and end the program when the input is "exit".
 while (userInput !== "exit") {
     if (userInput === "buy") {
         console.log("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to menu");
-        let coffeeChoice = prompt();
+        let coffeeChoice = input();
         if (coffeeChoice.toLowerCase() === "back") {
             askUser();
         } else if (coffeeChoice === "1") {
