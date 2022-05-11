@@ -1,13 +1,15 @@
-// Use "input()" to input a line from the user
+// Use "prompt()" to input a line from the user
 // Use "input(str)" to print some text before requesting input
 // You will need this in the following stages
-const input = require('sync-input')
+// const input = require('sync-input')
 
-let water = 400;
-let milk = 540;
-let beans = 120;
-let cups = 9;
-let money = 550;
+let defaultState = {
+    water: 400,
+    milk: 540,
+    beans: 120,
+    cups: 9,
+    money: 550
+}
 
 let espresso = {
     water: 250,
@@ -28,72 +30,69 @@ let cappuccino = {
     water: 200,
     milk: 100,
     beans: 12,
-    money: 6
+    money: 6,
+    cups: 1
 }
 
-function outputLog(water, milk, beans, cups, money) {
+function outputLog() {
     console.log(`The coffee machine has:
-    ${water} ml of water
-    ${milk} ml of milk
-    ${beans} g of coffee beans
-    ${cups} disposable cups
-    $${money} of money`);
+    ${defaultState.water} ml of water
+    ${defaultState.milk} ml of milk
+    ${defaultState.beans} g of coffee beans
+    ${defaultState.cups} disposable cups
+    $${defaultState.money} of money`);
+}
+
+function compute(coffee) {
+    for (let key in coffee) {
+        if (key === "money") {
+            defaultState[key] = defaultState[key] + coffee[key]
+        } else {
+            defaultState[key] = defaultState[key] - coffee[key]
+        }
+    }
 }
 
 
-outputLog(water, milk, beans, cups, money);
+outputLog();
 
 
 console.log("Write action (buy, fill, take):");
-let userInput = input();
+let userInput = prompt();
 
 if (userInput === "buy") {
     console.log("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-    let coffeeChoice = input();
+    let coffeeChoice = prompt();
 
-    if (coffeeChoice === "espresso") {
-        water = water - espresso.water;
-        beans = beans - espresso.beans;
-        money = money + espresso.money;
-        cups = cups - espresso.cups;
-
-        outputLog(water, milk, beans, cups, money);
+    if (coffeeChoice === "1") {
+        compute(espresso);
+        outputLog();
     } else if (coffeeChoice === "2") {
-        water = water - latte.water;
-        beans = beans - latte.beans;
-        money = money + latte.money;
-        cups = cups - latte.cups;
-
-        outputLog(water, milk, beans, cups, money);
+        compute(latte);
+        outputLog();
     } else if (coffeeChoice === "3") {
-        water = water - cappuccino.water;
-        beans = beans - cappuccino.beans;
-        money = money + cappuccino.money;
-        cups = cups - cappuccino.cups;
-
-        outputLog(water, milk, beans, cups, money);
+        compute(cappuccino);
+        outputLog();
+    } else {
+        console.log("Invalid Input");
     }
 } else if (userInput === "fill") {
     console.log("Write how many ml of water you want to add:");
-    let fillWater = parseInt(input());
-    water += fillWater;
+    defaultState.water += parseInt(prompt());
 
     console.log("Write how many ml of milk you want to add:");
-    let fillMilk = parseInt(input());
-    milk += fillMilk;
+    defaultState.milk += parseInt(prompt());
 
     console.log("Write how many grams of coffee beans you want to add:");
-    let fillBeans = parseInt(input());
-    beans += fillBeans;
+    defaultState.beans += parseInt(prompt());
 
     console.log("Write how many disposable coffee cups you want to add:");
-    let fillCups = parseInt(input());
-    cups += fillCups;
+    defaultState.cups += parseInt(prompt());
 
-    outputLog(water, milk, beans, cups, money);
+    outputLog();
 } else if (userInput === "take") {
-    console.log(`I gave you $${money}`);
-    money -= money;
+    console.log(`I gave you $${defaultState.money}`);
+    defaultState.money -= defaultState.money
 
-    outputLog(water, milk, beans, cups, money);
+    outputLog()
 }
