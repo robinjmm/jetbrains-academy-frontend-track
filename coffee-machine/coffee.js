@@ -1,4 +1,4 @@
-// Use "input()" to input a line from the user
+// Use "prompt()" to input a line from the user
 // Use "input(str)" to print some text before requesting input
 // You will need this in the following stages
 // const input = require('sync-input')
@@ -44,9 +44,8 @@ function outputLog() {
     $${defaultState.money} of money`);
 }
 
-
 function compute(coffee) {
-    // check if the if the coffee machine has sufficient ingredients
+    // check if the coffee machine has sufficient ingredients
     let isEnough = false;
     for (let amount in coffee) {
         if (amount === "money") {
@@ -75,19 +74,31 @@ function compute(coffee) {
 
 function askUser() {
     console.log("Write action (buy, fill, take, remaining, exit):");
-    userInput = input();
+    userInput = prompt();
 }
 
+function fillCoffeeMachine() {
+    console.log("Write how many ml of water you want to add:");
+    defaultState.water += parseInt(prompt());
+
+    console.log("Write how many ml of milk you want to add:");
+    defaultState.milk += parseInt(prompt());
+
+    console.log("Write how many grams of coffee beans you want to add:");
+    defaultState.beans += parseInt(prompt());
+
+    console.log("Write how many disposable coffee cups you want to add:");
+    defaultState.cups += parseInt(prompt());
+}
 
 console.log("Write action (buy, fill, take, remaining, exit):");
-let userInput = input();
+let userInput = prompt();
 
+// Continuously ask user for input and end the program when the input is "exit".
 while (userInput !== "exit") {
-
     if (userInput === "buy") {
         console.log("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to menu");
-        let coffeeChoice = input();
-
+        let coffeeChoice = prompt();
         if (coffeeChoice.toLowerCase() === "back") {
             askUser();
         } else if (coffeeChoice === "1") {
@@ -99,23 +110,9 @@ while (userInput !== "exit") {
         } else {
             console.log("Invalid Input");
         }
-
-
     } else if (userInput === "fill") {
-        console.log("Write how many ml of water you want to add:");
-        defaultState.water += parseInt(input());
-
-        console.log("Write how many ml of milk you want to add:");
-        defaultState.milk += parseInt(input());
-
-        console.log("Write how many grams of coffee beans you want to add:");
-        defaultState.beans += parseInt(input());
-
-        console.log("Write how many disposable coffee cups you want to add:");
-        defaultState.cups += parseInt(input());
-
+        fillCoffeeMachine();
         askUser();
-
     } else if (userInput.toLowerCase() === "take") {
         console.log(`I gave you $${defaultState.money}`);
         defaultState.money -= defaultState.money
